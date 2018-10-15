@@ -23,7 +23,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 http://www.gnu.org/copyleft/gpl.html..
 =====================================================================*/
 
-#include "../wxprofilergui/profilergui.h"
+//#include "../wxprofilergui/profilergui.h"
 #include "profilerthread.h"
 #include <wx/wfstream.h>
 #include <wx/zipstrm.h>
@@ -145,7 +145,8 @@ void ProfilerThread::sampleLoop()
 		double t = (double)diff / (double)freq.QuadPart;
 
 		__int64 elapsed = now.QuadPart - start.QuadPart;
-		if (!minidump_saved && prefs.saveMinidump>=0 && elapsed >= prefs.saveMinidump * freq.QuadPart)
+		//if (!minidump_saved && prefs.saveMinidump>=0 && elapsed >= prefs.saveMinidump * freq.QuadPart)
+		if (false) // tanjl: not save minidump
 		{
 			minidump_saved = true;
 			status = L"Saving minidump";
@@ -156,7 +157,7 @@ void ProfilerThread::sampleLoop()
 
 		sample(t);
 
-		int ms = 100 / prefs.throttle;
+		int ms = 100;// / prefs.throttle;
 		Sleep(ms);
 
 		prev = now;
@@ -305,7 +306,7 @@ void ProfilerThread::saveData()
 
 void ProfilerThread::run()
 {
-	wxLog::EnableLogging();
+	//wxLog::EnableLogging();
 
 	startTick = GetTickCount();
 
