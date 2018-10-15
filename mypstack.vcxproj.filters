@@ -63,54 +63,6 @@
     <ClCompile Include="profiler\symbolinfo.cpp">
       <Filter>源文件\profiler</Filter>
     </ClCompile>
-    <ClCompile Include="wxProfilerGUI\aboutdlg.cpp">
-      <Filter>源文件\wxProfilerGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="wxProfilerGUI\threadpicker.cpp">
-      <Filter>源文件\wxProfilerGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="wxProfilerGUI\threadlist.cpp">
-      <Filter>源文件\wxProfilerGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="wxProfilerGUI\sourceview.cpp">
-      <Filter>源文件\wxProfilerGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="wxProfilerGUI\profilergui.cpp">
-      <Filter>源文件\wxProfilerGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="wxProfilerGUI\proclist.cpp">
-      <Filter>源文件\wxProfilerGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="wxProfilerGUI\processlist.cpp">
-      <Filter>源文件\wxProfilerGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="wxProfilerGUI\optionsdlg.cpp">
-      <Filter>源文件\wxProfilerGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="wxProfilerGUI\mainwin.cpp">
-      <Filter>源文件\wxProfilerGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="wxProfilerGUI\logview.cpp">
-      <Filter>源文件\wxProfilerGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="wxProfilerGUI\launchdlg.cpp">
-      <Filter>源文件\wxProfilerGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="wxProfilerGUI\latesymbolinfo.cpp">
-      <Filter>源文件\wxProfilerGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="wxProfilerGUI\database.cpp">
-      <Filter>源文件\wxProfilerGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="wxProfilerGUI\contextmenu.cpp">
-      <Filter>源文件\wxProfilerGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="wxProfilerGUI\capturewin.cpp">
-      <Filter>源文件\wxProfilerGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="wxProfilerGUI\CallstackView.cpp">
-      <Filter>源文件\wxProfilerGUI</Filter>
-    </ClCompile>
     <ClCompile Include="mypstack.cpp">
       <Filter>源文件</Filter>
     </ClCompile>

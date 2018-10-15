@@ -22,7 +22,24 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 http://www.gnu.org/copyleft/gpl.html..
 =====================================================================*/
 #include "symbolinfo.h"
-#include "../wxProfilerGUI/profilergui.h"
+
+#include <wx/config.h>
+#include <wx/app.h>
+#include <wx/listctrl.h>
+#include <wx/splitter.h>
+#include <wx/notebook.h>
+#include <wx/aui/aui.h>
+#include <wx/progdlg.h>
+#include <wx/wfstream.h>
+#include <wx/zipstrm.h>
+#include <wx/txtstrm.h>
+#include <wx/cmdline.h>
+#include <wx/evtloop.h>
+#include <wx/tipwin.h>
+#include <string>
+#include <vector>
+#include <map>
+//#include "../wxProfilerGUI/profilergui.h"
 
 #include "../utils/stringutils.h"
 #include "../utils/osutils.h"
@@ -34,6 +51,94 @@ http://www.gnu.org/copyleft/gpl.html..
 #include <shlwapi.h>
 #include "../utils/except.h"
 #include "../appinfo.h"
+
+// tanjl:
+enum AttachMode
+{
+	ATTACH_ALL_THREAD,	// default
+	ATTACH_MAIN_THREAD,
+	ATTACH_MOST_BUSY_THREAD,
+};
+struct AttachInfo
+{
+	AttachInfo();
+	~AttachInfo();
+
+	HANDLE process_handle;
+	std::vector<HANDLE> thread_handles;
+	SymbolInfo *sym_info;
+	int limit_profile_time;
+};
+
+long cmdline_timeout = -1;
+AttachInfo::AttachInfo()
+{
+	process_handle = NULL;
+	sym_info = NULL;
+	limit_profile_time = cmdline_timeout;
+}
+
+AttachInfo::~AttachInfo()
+{
+	if (process_handle)
+		CloseHandle(process_handle);
+	if (sym_info)
+		delete sym_info;
+}
+class Prefs
+{
+public:
+	Prefs()
+	{
+		useSymServer = false;
+		saveMinidump = -1;
+		throttle = 100;
+		useWinePref = useWineSwitch = useMingwSwitch = false;
+		attachMode = ATTACH_ALL_THREAD;
+	}
+
+	wxString symSearchPath;
+	bool useSymServer;
+	wxString symCacheDir;
+	wxString symServer;
+	int saveMinidump; // Save minidump after X seconds. -1 = disabled
+	int throttle;
+
+	bool useWinePref, useWineSwitch, useMingwSwitch;
+	AttachMode attachMode;
+
+	bool UseWine()
+	{
+		return
+			useMingwSwitch ? false :
+			useWineSwitch ? true :
+			useWinePref;
+	}
+
+	// Add any configured search paths, and the symbol server if enabled.
+	void AdjustSymbolPath(std::wstring &sympath, bool download)
+	{
+		if (!symSearchPath.empty())
+		{
+			if (!sympath.empty())
+				sympath += L";";
+			sympath += symSearchPath;
+		}
+
+		if (useSymServer)
+		{
+			if (!sympath.empty())
+				sympath += L";";
+			sympath += L"SRV*";
+			sympath += symCacheDir;
+			if ( download )
+				sympath += std::wstring(L"*") + symServer;
+		}
+	}
+};
+Prefs prefs;
+
+
 
 SymLogFn *g_symLog = NULL;
 
