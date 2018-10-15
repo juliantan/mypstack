@@ -24,7 +24,23 @@ http://www.gnu.org/copyleft/gpl.html.
 #ifndef __DATABASE_H_666_
 #define __DATABASE_H_666_
 
-#include "profilergui.h"
+#include <wx/config.h>
+#include <wx/app.h>
+#include <wx/listctrl.h>
+#include <wx/splitter.h>
+#include <wx/notebook.h>
+#include <wx/aui/aui.h>
+#include <wx/progdlg.h>
+#include <wx/wfstream.h>
+#include <wx/zipstrm.h>
+#include <wx/txtstrm.h>
+#include <wx/cmdline.h>
+#include <wx/evtloop.h>
+#include <wx/tipwin.h>
+#include <string>
+#include <vector>
+#include <map>
+//#include "profilergui.h"
 #include "../utils/container.h"
 
 bool IsOsFunction(wxString proc);

@@ -24,7 +24,7 @@ http://www.gnu.org/copyleft/gpl.html.
 #ifndef __SOURCEVIEW_H_666_
 #define __SOURCEVIEW_H_666_
 
-#include "profilergui.h"
+//#include "profilergui.h"
 
 #include <wx/stc/stc.h>
 
